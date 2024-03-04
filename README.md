@@ -46,6 +46,12 @@ az vm extension set \
 export IP_ADDRESS=$(az vm show --show-details --resource-group $MY_RESOURCE_GROUP_NAME --name $MY_VM_NAME --query publicIps --output tsv)
 
 ssh -o StrictHostKeyChecking=no $MY_USERNAME@$IP_ADDRESS
+# will continue IN PROVISIONED AZURE VM
+```
+
+On Azure VM:
+
+```shell
 
 # check microk8s status
 sudo usermod -a -G microk8s azureuser
@@ -53,11 +59,6 @@ newgrp microk8s
 microk8s status --wait-ready
 
 
-```
-
-On Azure VM:
-
-```shell
 # arkade
 # https://github.com/alexellis/arkade?tab=readme-ov-file#getting-arkade
 curl -sLS https://get.arkade.dev | sudo sh
