@@ -1,0 +1,24 @@
+apiVersion: apps/v1 # This defines the API version for deployments
+kind: Deployment # This specifies the resource type
+metadata:
+  # This section defines metadata about the deployment
+  name: web # This is the name of the deployment
+spec:
+  replicas: 2 # This defines the number of replicas for the deployment
+  selector:
+    # This section defines the label selector that identifies pods to manage
+    matchLabels:
+      app: web # This defines the label that pods must have to be managed by the deployment
+  template:
+    # This section defines the pod template for the deployment
+    metadata:
+      labels:
+        # This defines the labels for the pod
+        app: web # This matches the label selector defined previously
+    spec:
+      containers:
+      - # This section defines the container spec for the pod
+        name: web # This is the name of the container
+        image: nginx # This is the image for the container
+        ports:
+        - containerPort: 80 # This defines the port that the container exposes
