@@ -27,6 +27,8 @@ source ~/.bashrc
 
 # kube config
 sudo microk8s config > ~/.kube/config
+chmod o= ~/.kube/config
+chmod g= ~/.kube/config
 
 # try
 kubectl get nodes
