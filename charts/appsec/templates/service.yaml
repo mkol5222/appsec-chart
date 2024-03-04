@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appsec
+spec:
+  selector:
+    app: appsec
+  ports:
+    # - protocol: TCP
+    #   port: 443
+    #   name: https
+    #   targetPort: 443  # Match the containerPort of the deployed pod
+    #   nodePort: 31703  # Use a unique nodePort value
+    - protocol: TCP
+      port: 80
+      name: http
+      targetPort: 80   # Match the containerPort of the deployed pod
+      nodePort: 32690  # Use a unique nodePort value
+    # - protocol: TCP
+    #   port: 8117
+    #   nodePort: 31117  # Use a unique nodePort value
+    #   name: health-check
+    #   targetPort: 8117  # Match the containerPort of the deployed pod
+  type: ClusterIP  # Use NodePort or ClusterIP based on your requirements
