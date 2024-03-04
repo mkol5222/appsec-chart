@@ -171,7 +171,10 @@ curl -Lkv http://$WEB_SERVICE_DOMAIN --resolve $WEB_SERVICE_DOMAIN:80:127.0.0.1 
 
 # replace cluster issuer with helm driven one
 k delete clusterissuer lets-encrypt
+
+# if needed, bring to server from GH
 cd; mkdir w; cd w; gh repo clone mkol5222/appsec-chart
+
 YOUR_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE!!!
 helm  install letsencrypt-issuer ./appsec-chart/charts/certs --set letsencrypt.email=$YOUR_EMAIL_ADDRESS
 ```
