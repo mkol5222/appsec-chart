@@ -8,7 +8,7 @@ Consider Azure Shell bash session for following commands:
 az account show --output table
 
 # Azure environment - VM provisioning
-
+. <(curl -s https://raw.githubusercontent.com/mkol5222/appsec-chart/main/setup-vm.sh)
 
 # login to new VM
 ssh -o StrictHostKeyChecking=no $MY_USERNAME@$IP_ADDRESS
@@ -18,32 +18,12 @@ ssh -o StrictHostKeyChecking=no $MY_USERNAME@$IP_ADDRESS
 On Azure VM:
 
 ```shell
-# avoid need for sudo
+# avoid need for sudo with microk8s
 sudo usermod -a -G microk8s azureuser
 newgrp microk8s
 
-# check microk8s status
-microk8s status --wait-ready
-
-
-# arkade
-# https://github.com/alexellis/arkade?tab=readme-ov-file#getting-arkade
-curl -sLS https://get.arkade.dev | sudo sh
-ark get kubectl
-ark get helm
-ark get k9s
-
-echo >> ~/.bashrc
-echo 'export PATH=$PATH:$HOME/.arkade/bin/' >> ~/.bashrc
-echo 'alias kubectl=microk8s.kubectl' >> ~/.bashrc
-echo 'alias helm=microk8s.helm' >> ~/.bashrc
-echo 'alias k=kubectl' >> ~/.bashrc
-source ~/.bashrc
-
-# kube config
-mkdir ~/.kube; sudo microk8s config > ~/.kube/config
-chmod o= ~/.kube/config
-chmod g= ~/.kube/config
+# setup user profile
+. <(curl -s https://raw.githubusercontent.com/mkol5222/appsec-chart/main/setup-user.sh)
 
 # bring charts
 git clone https://github.com/mkol5222/appsec-chart
@@ -52,7 +32,7 @@ git clone https://github.com/mkol5222/appsec-chart
 MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE
 helm install letsencrypt ./appsec-chart/charts/certs/ --set letsencrypt.email=$MY_EMAIL_ADDRESS
 
-APPSEC_TOKEN=cp-abc123... # REPLACE
+APPSEC_TOKEN=cp-abc123... # REPLACE WITH REAL TOKEN from Infinity Portal
 APPSEC_HOSTNAME=appsec1492.klaud.online # REPLACE
 
 # prepare DNS
