@@ -1,5 +1,5 @@
 apiVersion: v2
-name: certs
+name: web
 description: Simple web application with cert-manager issued certificate
 type: application
 version: 0.1.0

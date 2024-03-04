@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1 # This defines the API version for deployments
 kind: Deployment # This specifies the resource type
 metadata:
