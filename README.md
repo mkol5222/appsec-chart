@@ -93,6 +93,7 @@ APPSEC_HOSTNAME=appsec1492.klaud.online # REPLACE
 VMPUBLICIP=$(curl -s ip.iol.cz/ip/)
 echo "Make sure DNS recort for $APPSEC_HOSTNAME points to $VMPUBLICIP"
 # verify
+sudo resolvectl flush-caches 
 dig +short $APPSEC_HOSTNAME
 
 helm install appsec ./appsec-chart/charts/appsec/ --set cptoken=$APPSEC_TOKEN --set hostname=$APPSEC_HOSTNAME
