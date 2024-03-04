@@ -32,6 +32,7 @@ az vm create \
   --generate-ssh-keys \
   --custom-data cloud-init.txt \
   --assign-identity \
+  --size Standard_DS2_v2  \
   --public-ip-sku Standard
   
 az vm extension set \
@@ -70,9 +71,31 @@ echo 'alias k=kubectl' >> ~/.bashrc
 source ~/.bashrc
 
 # kube config
-sudo microk8s config > ~/.kube/config
+mkdir ~/.kube; sudo microk8s config > ~/.kube/config
 chmod o= ~/.kube/config
 chmod g= ~/.kube/config
+
+# bring charts
+git clone https://github.com/mkol5222/appsec-chart
+
+# ready to deploy certificate issuer with HTTP-01 solver
+MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE
+helm install letsencrypt ./appsec-chart/charts/certs/ --set letsencrypt.email=$MY_EMAIL_ADDRESS
+
+APPSEC_TOKEN=cp-abc123... # REPLACE
+APPSEC_HOSTNAME=appsec1492.klaud.online # REPLACE
+
+# prepare DNS
+VMPUBLICIP=$(curl -s ip.iol.cz/ip/)
+echo "Make sure DNS recort for $APPSEC_HOSTNAME points to $VMPUBLICIP"
+# verify
+dig +short $APPSEC_HOSTNAME
+
+helm install appsec ./appsec-chart/charts/appsec/ --set cptoken=$APPSEC_TOKEN --set hostname=$APPSEC_HOSTNAME
+
+# monitor appsec and http-01 solver
+k get po --watch
+
 ```
 
 Cleanup:
