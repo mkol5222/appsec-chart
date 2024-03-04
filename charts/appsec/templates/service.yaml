@@ -16,7 +16,7 @@ spec:
       port: 80
       name: http
       targetPort: 80   # Match the containerPort of the deployed pod
-      nodePort: 32690  # Use a unique nodePort value
+      # nodePort: 32690  # Use a unique nodePort value
     # - protocol: TCP
     #   port: 8117
     #   nodePort: 31117  # Use a unique nodePort value
