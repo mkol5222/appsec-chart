@@ -44,7 +44,7 @@ microk8s enable ingress
 
 # try https://microk8s.io/docs/addon-cert-manager
 
-YOUR_EMAIL_ADDRESS="someone@outlook.com" # REPLACE
+YOUR_EMAIL_ADDRESS="someone1@outlook.com" # REPLACE
 
 cat - <<EOF | sed "s/email: .*/email: $YOUR_EMAIL_ADDRESS/" | kubectl apply -f -
 ---
@@ -76,7 +76,7 @@ curl -s ip.iol.cz/ip/; echo
 
 # publish on your hostname - pointed in DNS to your VMs public IP
 
-YOUR_HOSTNAME="microbo1.klaud.online" # REPLACE WITH YOUR HOSTNAME
+YOUR_HOSTNAME="microbot2.klaud.online" # REPLACE WITH YOUR HOSTNAME
 
 # flush dns and check DNS
 sudo resolvectl flush-caches
@@ -126,4 +126,44 @@ k get secret microbot-ingress-tls -o jsonpath='{.data.tls\.crt}' | base64 -d | o
 k delete ingress microbot-ingress
 k delete svc microbot
 k delete deploy microbot
+# and issuer too
+k delete clusterissuer lets-encrypt
+
+
+# yet another service
+k create deploy webik --image=nginx --replicas=2
+k expose deploy webik --port 80 --type ClusterIP
+
+# ingress
+WEB_SERVICE_DOMAIN="webik123.klaud.online" # REPLACE WITH YOUR HOSTNAME
+cat - <<EOF | sed "s/my-service.example.com/$WEB_SERVICE_DOMAIN/" | kubectl apply -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: webik-ingress
+ annotations:
+   cert-manager.io/cluster-issuer: lets-encrypt
+spec:
+ tls:
+ - hosts:
+   - my-service.example.com
+   secretName: webik-ingress-tls
+ rules:
+ - host: my-service.example.com
+   http:
+     paths:
+     - backend:
+         service:
+           name: web
+           port:
+             number: 80
+       path: /
+       pathType: Exact
+EOF
+
+k logs -f -n cert-manager deploy/cert-manager
+dig +short $WEB_SERVICE_DOMAIN
+k get secret webik-ingress-tls  -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -text -noout | grep CN
+curl -Lkv http://$WEB_SERVICE_DOMAIN --resolve $WEB_SERVICE_DOMAIN:80:127.0.0.1 2>&1 | grep CN
+
 ```
