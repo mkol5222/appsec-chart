@@ -76,12 +76,13 @@ curl -s ip.iol.cz/ip/; echo
 
 # publish on your hostname - pointed in DNS to your VMs public IP
 
-YOUR_HOSTNAME="microbot.klaud.online" # REPLACE WITH YOUR HOSTNAME
+YOUR_HOSTNAME="microbo1.klaud.online" # REPLACE WITH YOUR HOSTNAME
 
 # flush dns and check DNS
 sudo resolvectl flush-caches
 dig +short $YOUR_HOSTNAME
 
+# ingress
 cat - <<EOF | sed "s/my-service.example.com/$YOUR_HOSTNAME/" | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -117,9 +118,9 @@ curl -Lkv http://$YOUR_HOSTNAME --resolve $YOUR_HOSTNAME:80:127.0.0.1 2>&1 | gre
 # look at certs
 k get certificate microbot-ingress-tls
 k describe certificaterequest
-
-k get secret -A microbot-ingress-tls
-k get secret microbot-ingress-tls -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -text -noout
+# once certificate is issued:
+k get secret -A | grep microbot-ingress-tls
+k get secret microbot-ingress-tls -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -text -noout | grep CN
 
 # cleanup test
 k delete ingress microbot-ingress
