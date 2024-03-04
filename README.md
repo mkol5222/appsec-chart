@@ -34,7 +34,9 @@ az vm create \
   --assign-identity \
   --size Standard_DS2_v2  \
   --public-ip-sku Standard
-  
+
+az vm open-port -g $MY_RESOURCE_GROUP_NAME -n $MY_VM_NAME --port 22,80,443
+
 az vm extension set \
     --publisher Microsoft.Azure.ActiveDirectory \
     --name AADSSHLoginForLinux \
