@@ -28,10 +28,19 @@ newgrp microk8s
 # bring charts
 git clone https://github.com/mkol5222/appsec-chart
 
-# ready to deploy certificate issuer with HTTP-01 solver
+
+# ready to deploy certificate issuer with HTTP-01 solver - FOCUS ON EMAIL ADDRESS!!!
+#
+#
+#
 MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE
 helm install letsencrypt ./appsec-chart/charts/certs/ --set letsencrypt.email=$MY_EMAIL_ADDRESS
 
+
+# ready to deploy AppSec WAF - FOCUS ON INPUTS AND DNS RECORD!!!
+#
+#
+#
 APPSEC_TOKEN=cp-abc123... # REPLACE WITH REAL TOKEN from Infinity Portal
 APPSEC_HOSTNAME=appsec1492.klaud.online # REPLACE
 
