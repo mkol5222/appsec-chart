@@ -5,7 +5,7 @@ runcmd:
    snap install microk8s --classic
    microk8s start
    microk8s status  
-   microk8s enable dns storage ingress        
+   microk8s enable dns ingress cert-manager   
         
 apt_update: true
 apt_upgrade: true
