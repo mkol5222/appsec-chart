@@ -7,10 +7,10 @@ metadata:
 spec:
  tls:
  - hosts:
-   - {{ Values.hostname }}
+   - {{ .Values.hostname }}
    secretName: web-ingress-tls
  rules:
- - host: {{ Values.hostname }}
+ - host: {{.Values.hostname }}
    http:
      paths:
      - backend:
