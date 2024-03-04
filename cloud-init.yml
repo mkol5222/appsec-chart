@@ -1,0 +1,14 @@
+#cloud-config
+runcmd:
+ - |
+   # install and start microk8s
+   snap install microk8s --classic
+   microk8s start
+   microk8s status  
+   microk8s enable dns storage ingress        
+        
+apt_update: true
+apt_upgrade: true
+package_update: true
+package_upgrade: true
+package_reboot_if_required: false
