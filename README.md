@@ -52,10 +52,11 @@ ssh -o StrictHostKeyChecking=no $MY_USERNAME@$IP_ADDRESS
 On Azure VM:
 
 ```shell
-
-# check microk8s status
+# avoid need for sudo
 sudo usermod -a -G microk8s azureuser
 newgrp microk8s
+
+# check microk8s status
 microk8s status --wait-ready
 
 
