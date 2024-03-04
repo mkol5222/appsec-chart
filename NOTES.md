@@ -168,4 +168,10 @@ dig +short $WEB_SERVICE_DOMAIN
 k get secret webik-ingress-tls  -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -text -noout | grep CN
 curl -Lkv http://$WEB_SERVICE_DOMAIN --resolve $WEB_SERVICE_DOMAIN:80:127.0.0.1 2>&1 | grep CN
 
+
+# replace cluster issuer with helm driven one
+k delete clusterissuer lets-encrypt
+cd; mkdir w; cd w; gh repo clone mkol5222/appsec-chart
+YOUR_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE!!!
+helm  install letsencrypt-issuer ./appsec-chart/charts/certs --set letsencrypt.email=$YOUR_EMAIL_ADDRESS
 ```
