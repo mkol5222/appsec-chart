@@ -1,0 +1,36 @@
+apiVersion: v1
+entries:
+  appsec:
+  - apiVersion: v2
+    appVersion: 1.0.1
+    created: "2024-03-06T07:45:39.869901332Z"
+    description: Simple deployment of CloudGuard WAF with HTTPS and certs
+    digest: e7fbbd1560012fa3f77a734121348b4f6b7656bab8fb581f644248e09e5a1258
+    name: appsec
+    type: application
+    urls:
+    - https://github.com/mkol5222/appsec-chart/releases/download/appsec-0.1.0/appsec-0.1.0.tgz
+    version: 0.1.0
+  certs:
+  - apiVersion: v2
+    appVersion: 1.0.1
+    created: "2024-03-06T07:45:40.041355691Z"
+    description: Lets encrypt certificate issuer
+    digest: cdc23a642ceff412995d4904b4399ac7054d25802d5fcd5e6d5e8218f7e1acf3
+    name: certs
+    type: application
+    urls:
+    - https://github.com/mkol5222/appsec-chart/releases/download/certs-0.1.0/certs-0.1.0.tgz
+    version: 0.1.0
+  web:
+  - apiVersion: v2
+    appVersion: 1.0.1
+    created: "2024-03-06T07:45:40.230003559Z"
+    description: Simple web application with cert-manager issued certificate
+    digest: 8f6ea0b3ad3104da6919522fa68584d3ac79dea3fd5aa8e4a0b5e0658ba6fc5d
+    name: web
+    type: application
+    urls:
+    - https://github.com/mkol5222/appsec-chart/releases/download/web-0.1.0/web-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-03-06T07:45:40.230015721Z"
