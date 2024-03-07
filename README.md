@@ -4,27 +4,21 @@ Consider Azure Shell bash session for following commands:
 
 ```shell
 
-# verify Azure subsctiption
+# verify current Azure subsctiption (it should be ready in  Azure Shell)
 az account show --output table
 
-# Azure environment - VM provisioning
+# Azure environment - Ubuntu LTS VM with public IP provisioning
 . <(curl -s https://raw.githubusercontent.com/mkol5222/appsec-chart/main/setup-vm.sh)
 
 # login to new VM
-ssh -o StrictHostKeyChecking=no $MY_USERNAME@$IP_ADDRESS
+sshvm
 # will continue IN PROVISIONED AZURE VM
 ```
 
-On Azure VM:
+Lets continue on Azure VM:
 
 ```shell
-# avoid need for sudo with microk8s
-sudo usermod -a -G microk8s azureuser
-newgrp microk8s
-
-# setup user profile
-. <(curl -s https://raw.githubusercontent.com/mkol5222/appsec-chart/main/setup-user.sh)
-
+# IN AZURE VM (after sshvm) 
 
 # ready to deploy AppSec WAF - FOCUS ON INPUTS AND DNS RECORD!!!
 #
@@ -51,7 +45,8 @@ k get po --watch
 Cleanup:
 
 ```shell
-# when want to remove VM later
-az vm delete --resource-group $MY_RESOURCE_GROUP_NAME --name $MY_VM_NAME --yes
-az group delete --name $MY_RESOURCE_GROUP_NAME --yes
+# BACK IN AZURE SHELL: when want to remove VM later
+# we store ./destroyvm-<RANDOMID>.sh - look what it does
+ls destroyvm*sh; cat destrouvm*.sh
+
 ```
