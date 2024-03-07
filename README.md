@@ -31,14 +31,27 @@ MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE - used for Let's Encrypt
 APPSEC_TOKEN=cp-67c2... # REPLACE WITH REAL TOKEN from Infinity Portal - Docker simple MANAGED profile token
 APPSEC_HOSTNAME=appsec1493.klaud.online # REPLACE
 
-# prepare/verify DNS
-VMPUBLICIP=$(curl -s ip.iol.cz/ip/)
-echo
-echo "Make sure DNS recort for $APPSEC_HOSTNAME points to $VMPUBLICIP"
-# verify
-sudo resolvectl flush-caches 
-echo "$APPSEC_HOSTNAME points to $(dig +short $APPSEC_HOSTNAME)"
+# prepare DNS
+function verifyDns {
+    sudo resolvectl flush-caches 
+    VMPUBLICIP=$(curl -s ip.iol.cz/ip/)
+    DNSIP=$(dig +short $APPSEC_HOSTNAME)
+    echo "Checking that DNS recort for $APPSEC_HOSTNAME points to $VMPUBLICIP"
+    if [ "$VMPUBLICIP" == "$DNSIP" ]; then
+        echo "Success: DNS points to this VM."
+    else
+        if [ -z "$DNSIP" ]; then
+            echo "DNS record not defined"
+        else
+            echo "DNS record points to ***wrong*** IP: $DNSIP"
+        fi
+        echo "Failed: please setup DNS record for $APPSEC_HOSTNAME"
+    fi 
+}
+# run (and rerun after DNS changes)
+verifyDns
 
+# ready to install
 helm install appsec https://github.com/mkol5222/appsec-chart/releases/download/appsec-0.1.1/appsec-0.1.1.tgz --set cptoken=$APPSEC_TOKEN --set hostname=$APPSEC_HOSTNAME --set letsencrypt.email=$MY_EMAIL_ADDRESS
 
 # monitor appsec and http-01 solver
