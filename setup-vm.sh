@@ -39,5 +39,12 @@ export IP_ADDRESS=$(az vm show --show-details --resource-group $MY_RESOURCE_GROU
 
 alias sshvm="ssh -o StrictHostKeyChecking=no $MY_USERNAME@$IP_ADDRESS"
 
+echo '#!/bin/bash' > "destroyvm-$RANDOM_ID"
+echo "az vm delete --resource-group $MY_RESOURCE_GROUP_NAME --name $MY_VM_NAME --yes" >> "destroyvm-$RANDOM_ID"
+echo "az group delete --name $MY_RESOURCE_GROUP_NAME --yes" >> "destroyvm-$RANDOM_ID"
+chmod +x "destroyvm-$RANDOM_ID"
+
 echo
 echo "VM created. You can now connect to it using 'sshvm' command"
+echo "To destroy the VM, run 'destroyvm-$RANDOM_ID'"
+echo
