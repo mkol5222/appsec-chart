@@ -8,6 +8,7 @@ Consider Azure Shell bash session for following commands:
 az account show --output table
 
 # Azure environment - Ubuntu LTS VM with public IP provisioning
+cd $(mktemp -d)
 . <(curl -s https://raw.githubusercontent.com/mkol5222/appsec-chart/main/setup-vm.sh)
 
 # login to new VM
