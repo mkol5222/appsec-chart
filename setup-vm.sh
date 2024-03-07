@@ -44,6 +44,10 @@ echo "az vm delete --resource-group $MY_RESOURCE_GROUP_NAME --name $MY_VM_NAME -
 echo "az group delete --name $MY_RESOURCE_GROUP_NAME --yes" >> "destroyvm-$RANDOM_ID"
 chmod +x "destroyvm-$RANDOM_ID"
 
+echo '#!/bin/bash' > "sshvm-$RANDOM_ID"
+echo "az ssh vm -n $MY_VM_NAME -g $MY_RESOURCE_GROUP_NAME --local-user azureuser" >> "sshvm-$RANDOM_ID"
+chmod +x "sshvm-$RANDOM_ID"
+
 echo
 echo "VM created. You can now connect to it using 'sshvm' command"
 echo "To destroy the VM, run 'destroyvm-$RANDOM_ID'"
