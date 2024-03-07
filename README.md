@@ -25,18 +25,12 @@ newgrp microk8s
 # setup user profile
 . <(curl -s https://raw.githubusercontent.com/mkol5222/appsec-chart/main/setup-user.sh)
 
-# ready to deploy certificate issuer with HTTP-01 solver - FOCUS ON EMAIL ADDRESS!!!
-#
-#
-#
-MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE
-helm install letsencrypt https://github.com/mkol5222/appsec-chart/releases/download/certs-0.1.0/certs-0.1.0.tgz --set letsencrypt.email=$MY_EMAIL_ADDRESS
-
 
 # ready to deploy AppSec WAF - FOCUS ON INPUTS AND DNS RECORD!!!
 #
 #
 #
+MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE
 APPSEC_TOKEN=cp-abc123... # REPLACE WITH REAL TOKEN from Infinity Portal
 APPSEC_HOSTNAME=appsec1492.klaud.online # REPLACE
 
@@ -47,7 +41,7 @@ echo "Make sure DNS recort for $APPSEC_HOSTNAME points to $VMPUBLICIP"
 sudo resolvectl flush-caches 
 dig +short $APPSEC_HOSTNAME
 
-helm install appsec https://github.com/mkol5222/appsec-chart/releases/download/appsec-0.1.0/appsec-0.1.0.tgz --set cptoken=$APPSEC_TOKEN --set hostname=$APPSEC_HOSTNAME
+helm install appsec https://github.com/mkol5222/appsec-chart/releases/download/appsec-0.1.1/appsec-0.1.1.tgz --set cptoken=$APPSEC_TOKEN --set hostname=$APPSEC_HOSTNAME --set letsencrypt.email=$MY_EMAIL_ADDRESS
 
 # monitor appsec and http-01 solver
 k get po --watch

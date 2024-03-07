@@ -2,3 +2,11 @@
 # hostname to publish to
 hostname: "web1492.klaud.online"
 cptoken:
+
+# Lets encrypt cluster issuer
+
+letsencrypt:
+  # Lets encrypt certificate issuer user
+  email: "microk8s@example.com"
+  # secret used to store Lets encrypt account's private key
+  secret: lets-encrypt-priviate-key
