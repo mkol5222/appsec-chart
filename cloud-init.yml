@@ -24,13 +24,12 @@ system_info:
     groups: [microk8s]
 
 write_files:
-  - path: /home/azureuser/.bash_aliases
+  - path: /etc/bash.bashrc
     content: |
       alias kubectl='microk8s kubectl'
       alias helm='microk8s helm'
       alias k='kubectl'
       alias h='helm'  
-    owner: 'azureuser:azureuser'
-    permissions: '0644'
+    append: true
 
 final_message: "The system is finally up, after $UPTIME seconds"

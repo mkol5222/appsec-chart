@@ -46,7 +46,7 @@ Cleanup:
 
 ```shell
 # BACK IN AZURE SHELL: when want to remove VM later
-# we store ./destroyvm-<RANDOMID>.sh - look what it does
-ls destroyvm*sh; cat destrouvm*.sh
+# we store ./destroyvm<RANDOMID> - look what it does
+ls destroyvm*; cat destroyvm*
 
 ```
