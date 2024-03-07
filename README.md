@@ -33,6 +33,7 @@ APPSEC_HOSTNAME=appsec1493.klaud.online # REPLACE
 
 # prepare/verify DNS
 VMPUBLICIP=$(curl -s ip.iol.cz/ip/)
+echo
 echo "Make sure DNS recort for $APPSEC_HOSTNAME points to $VMPUBLICIP"
 # verify
 sudo resolvectl flush-caches 
