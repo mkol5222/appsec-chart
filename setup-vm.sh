@@ -37,3 +37,7 @@ az vm extension set \
 
 export IP_ADDRESS=$(az vm show --show-details --resource-group $MY_RESOURCE_GROUP_NAME --name $MY_VM_NAME --query publicIps --output tsv)
 
+alias sshvm="ssh -o StrictHostKeyChecking=no $MY_USERNAME@$IP_ADDRESS"
+
+echo
+echo "VM created. You can now connect to it using 'sshvm' command"

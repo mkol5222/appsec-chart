@@ -18,3 +18,19 @@ packages:
   - curl
   - git
   - vim
+
+system_info:
+  default_user:
+    groups: [microk8s]
+
+write_files:
+  - path: /home/azureuser/.bash_aliases
+    content: |
+      alias kubectl='microk8s kubectl'
+      alias helm='microk8s helm'
+      alias k='kubectl'
+      alias h='helm'  
+    owner: 'azureuser:azureuser'
+    permissions: '0644'
+
+final_message: "The system is finally up, after $UPTIME seconds"
