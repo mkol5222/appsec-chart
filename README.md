@@ -20,20 +20,23 @@ Lets continue on Azure VM:
 ```shell
 # IN AZURE VM (after sshvm) 
 
+# make sure machine is ready (it returns to prompt, once ready)
+microk8s status --wait-ready
+
 # ready to deploy AppSec WAF - FOCUS ON INPUTS AND DNS RECORD!!!
 #
 #
 #
-MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE
-APPSEC_TOKEN=cp-abc123... # REPLACE WITH REAL TOKEN from Infinity Portal
-APPSEC_HOSTNAME=appsec1492.klaud.online # REPLACE
+MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE - used for Let's Encrypt
+APPSEC_TOKEN=cp-67c2... # REPLACE WITH REAL TOKEN from Infinity Portal - Docker simple MANAGED profile token
+APPSEC_HOSTNAME=appsec1493.klaud.online # REPLACE
 
-# prepare DNS
+# prepare/verify DNS
 VMPUBLICIP=$(curl -s ip.iol.cz/ip/)
 echo "Make sure DNS recort for $APPSEC_HOSTNAME points to $VMPUBLICIP"
 # verify
 sudo resolvectl flush-caches 
-dig +short $APPSEC_HOSTNAME
+echo "$APPSEC_HOSTNAME points to $(dig +short $APPSEC_HOSTNAME)"
 
 helm install appsec https://github.com/mkol5222/appsec-chart/releases/download/appsec-0.1.1/appsec-0.1.1.tgz --set cptoken=$APPSEC_TOKEN --set hostname=$APPSEC_HOSTNAME --set letsencrypt.email=$MY_EMAIL_ADDRESS
 
