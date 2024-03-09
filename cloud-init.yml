@@ -31,5 +31,24 @@ write_files:
       alias k='kubectl'
       alias h='helm'  
     append: true
+  - path: /usr/local/bin/verify-dns
+    content: |
+      #!/bin/bash
+      # Verify DNS resolution
+      sudo resolvectl flush-caches 
+      VMPUBLICIP=$(curl -s ip.iol.cz/ip/)
+      DNSIP=$(dig +short $APPSEC_HOSTNAME)
+      echo "Checking that DNS recort for $APPSEC_HOSTNAME points to $VMPUBLICIP"
+      if [ "$VMPUBLICIP" == "$DNSIP" ]; then
+          echo "SUCCESS: DNS points to this VM."
+      else
+          if [ -z "$DNSIP" ]; then
+              echo "DNS record not defined. Create: $APPSEC_HOSTNAME IN A $VMPUBLICIP"
+          else
+              echo "DNS record points to ***wrong*** IP: $DNSIP, but it should be $VMPUBLICIP"
+          fi
+          echo "!!! FAILED !!!: please setup DNS record for $APPSEC_HOSTNAME"
+      fi 
+    permissions: '0755'
 
 final_message: "The system is finally up, after $UPTIME seconds"
