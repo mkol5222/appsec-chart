@@ -28,13 +28,13 @@ microk8s status --wait-ready
 #
 #
 #
-MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE - used for Let's Encrypt
+export MY_EMAIL_ADDRESS="someone@somewhere.net" # REPLACE - used for Let's Encrypt
 # REPLACE WITH REAL TOKEN from Infinity Portal - Docker simple MANAGED profile token
-APPSEC_TOKEN=cp-67c2... 
-APPSEC_HOSTNAME=appsec1493.klaud.online # REPLACE
+export APPSEC_TOKEN=cp-67c2... 
+export APPSEC_HOSTNAME=appsec1493.klaud.online # REPLACE
 
 # prepare DNS record for the service
-# check DNS util properly configured
+# check DNS until properly configured
 verify-dns
 
 # ready to install
