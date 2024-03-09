@@ -19,7 +19,7 @@ echo "Resource group status: $RGSTATUS"
 echo
 
 # get cloud-init.txt
-curl -o cloud-init.txt https://raw.githubusercontent.com/mkol5222/appsec-chart/main/cloud-init.yml
+curl -s -o cloud-init.txt https://raw.githubusercontent.com/mkol5222/appsec-chart/main/cloud-init.yml
 
 # create VM
 # https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli
@@ -42,6 +42,7 @@ if [ $? -ne 0 ]; then
 fi
 
 VMSTATUS=$(echo $RESPVM | jq -r '.powerState')
+echo
 echo "VM status: $VMSTATUS"
 echo
 
