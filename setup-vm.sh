@@ -8,6 +8,7 @@ export MY_USERNAME=azureuser
 export MY_VM_IMAGE="Canonical:0001-com-ubuntu-minimal-jammy:minimal-22_04-lts-gen2:latest"
 
 # create resource group
+echo
 echo "Creating resource group $MY_RESOURCE_GROUP_NAME in $REGION"
 RGRESP=$(az group create --name $MY_RESOURCE_GROUP_NAME --location $REGION -o json)
 if [ $? -ne 0 ]; then
