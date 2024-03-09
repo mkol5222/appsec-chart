@@ -40,14 +40,14 @@ write_files:
       DNSIP=$(dig +short $APPSEC_HOSTNAME)
       echo "Checking that DNS recort for $APPSEC_HOSTNAME points to $VMPUBLICIP"
       if [ "$VMPUBLICIP" == "$DNSIP" ]; then
-          echo "SUCCESS: DNS points to this VM."
+          echo -e "\033[32m SUCCESS: DNS points to this VM."
       else
           if [ -z "$DNSIP" ]; then
-              echo "DNS record not defined. Create: $APPSEC_HOSTNAME IN A $VMPUBLICIP"
+              echo -e "\033[31m DNS record not defined. Create: $APPSEC_HOSTNAME IN A $VMPUBLICIP"
           else
-              echo "DNS record points to ***wrong*** IP: $DNSIP, but it should be $VMPUBLICIP"
+              echo -e "\033[31m DNS record points to ***wrong*** IP: $DNSIP, but it should be $VMPUBLICIP"
           fi
-          echo "!!! FAILED !!!: please setup DNS record for $APPSEC_HOSTNAME"
+          echo -e "\033[31m FAILED: please setup DNS record for $APPSEC_HOSTNAME"
       fi 
     permissions: '0755'
 
