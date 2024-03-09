@@ -35,6 +35,10 @@ write_files:
     content: |
       #!/bin/bash
       # Verify DNS resolution
+      if [ -z "$APPSEC_HOSTNAME" ]; then
+          echo "APPSEC_HOSTNAME is not defined. Please define it first..."
+          exit 1
+      fi
       sudo resolvectl flush-caches 
       VMPUBLICIP=$(curl -s ip.iol.cz/ip/)
       DNSIP=$(dig +short $APPSEC_HOSTNAME)
