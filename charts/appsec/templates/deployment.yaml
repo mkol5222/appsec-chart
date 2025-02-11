@@ -23,8 +23,8 @@ spec:
         # securityContext:
         #   runAsUser: 0
         #   runAsGroup: 0
-        #image: checkpoint/cloudguard-appsec-standalone:latest
-        image: checkpoint/cloudguard-appsec-standalone:787396
+        image: checkpoint/cloudguard-appsec-standalone:latest
+        #image: checkpoint/cloudguard-appsec-standalone:787396
         args:
         - /cloudguard-appsec-standalone
         - --token
