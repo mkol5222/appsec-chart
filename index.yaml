@@ -32,6 +32,17 @@ entries:
     urls:
     - https://github.com/mkol5222/appsec-chart/releases/download/certs-0.1.0/certs-0.1.0.tgz
     version: 0.1.0
+  simple-waf:
+  - apiVersion: v2
+    appVersion: 1.0.1
+    created: "2025-03-30T13:13:49.352433695Z"
+    description: Simple deployment of CloudGuard WAF with self signed certificate
+    digest: bc3cc6330d7248bf81df8bc9a0e73b8c677bd542892c0ac359a2a8ca9477c8ba
+    name: simple-waf
+    type: application
+    urls:
+    - https://github.com/mkol5222/appsec-chart/releases/download/simple-waf-0.0.1/simple-waf-0.0.1.tgz
+    version: 0.0.1
   web:
   - apiVersion: v2
     appVersion: 1.0.1
@@ -43,4 +54,4 @@ entries:
     urls:
     - https://github.com/mkol5222/appsec-chart/releases/download/web-0.1.0/web-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-07T06:10:15.294792563Z"
+generated: "2025-03-30T13:13:49.352450707Z"
