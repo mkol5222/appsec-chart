@@ -1,6 +1,6 @@
 # AppSec deployment on K8S - helm chart
 
-
+ 
 ```shell
 # Ubuntu VM with public IP
 ssh lab1vm
