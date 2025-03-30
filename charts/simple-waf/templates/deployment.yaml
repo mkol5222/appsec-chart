@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appsec
+spec:
+  replicas: 2  # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: appsec
+  template:
+    metadata:
+      labels:
+        app: appsec
+    spec:
+      containers:
+      - name: cloudguard-appsec-standalone
+        env:
+        - name: CPTOKEN
+          valueFrom:
+            secretKeyRef:
+              name: appsec
+              key: cptoken
+        # securityContext:
+        #   runAsUser: 0
+        #   runAsGroup: 0
+        image: checkpoint/cloudguard-appsec-standalone:latest
+        #image: checkpoint/cloudguard-appsec-standalone:787396
+        args:
+        - /cloudguard-appsec-standalone
+        - --token
+        - $(CPTOKEN)
+        - --ignore-all
+        # env:
+        # - name: https_proxy
+        #   value: "user:password@Proxy address:port"
+        ports:
+        - containerPort: 443  # SSL port
+        - containerPort: 80   # HTTP port
+        - containerPort: 8117 # Health-check port
+        volumeMounts:
+            - name: tls-secret
+              mountPath: "/etc/certs/hello.pem"
+              subPath: "tls.crt"
+              readOnly: true
+            - name: tls-secret
+              mountPath: "/etc/certs/hello.key"
+              subPath: "tls.key"
+        # - name: certs
+        #   mountPath: "/etc/certs2/"
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8117
+            scheme: HTTP
+          periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 10
+        startupProbe:
+          failureThreshold: 90
+          httpGet:
+            path: /
+            port: 8117
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      #schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: tls-secret
+          secret:
+            secretName: hello-klaud-tls
+        - name: certs
+          emptyDir: {}

@@ -1,0 +1,6 @@
+
+# hostname to publish to
+hostname: "hello.klaud.online"
+# token of your Docker Single Managed profile
+cptoken:
+

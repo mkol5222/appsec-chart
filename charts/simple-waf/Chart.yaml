@@ -1,0 +1,6 @@
+apiVersion: v2
+name: simple-waf
+description: Simple deployment of CloudGuard WAF with self signed certificate
+type: application
+version: 0.0.1
+appVersion: "1.0.1"
