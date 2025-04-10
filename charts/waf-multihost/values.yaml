@@ -1,9 +1,11 @@
-replicaCount: 1
+replicaCount: 2
 
 image:
-  repository: my-app
+  repository: checkpoint/cloudguard-appsec-standalone
   tag: "latest"
 
+# token of your Docker Single Managed profile
+cptoken:
 
 certificates:
   issuer: letsencrypt-prod  # Your cert-manager issuer
