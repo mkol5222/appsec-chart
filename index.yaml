@@ -43,6 +43,16 @@ entries:
     urls:
     - https://github.com/mkol5222/appsec-chart/releases/download/simple-waf-0.0.1/simple-waf-0.0.1.tgz
     version: 0.0.1
+  waf-multihost:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-04-10T06:17:49.587156985Z"
+    description: CloudGuard WAF Deployment for multiple hostnames
+    digest: 01bd0f35ba3157ec85d45fb1f12e08f660cce1c7fa44e14b1b31ed730ae9ffb4
+    name: waf-multihost
+    urls:
+    - https://github.com/mkol5222/appsec-chart/releases/download/waf-multihost-0.1.0/waf-multihost-0.1.0.tgz
+    version: 0.1.0
   web:
   - apiVersion: v2
     appVersion: 1.0.1
@@ -54,4 +64,4 @@ entries:
     urls:
     - https://github.com/mkol5222/appsec-chart/releases/download/web-0.1.0/web-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-30T13:13:49.352450707Z"
+generated: "2025-04-10T06:17:49.587166663Z"
