@@ -76,12 +76,12 @@ spec:
         - name: certs-volume
           projected:
             sources:
-            {{- range $host := .Values.certificates.hosts }}
-            - secret:
-              name: {{ $.Release.Name }}-{{ $host.hostname | replace "." "-" }}-tls
-              items:
-              - key: tls.key
-                path: {{ $host.hostname }}.key
-              - key: tls.crt
-                path: {{ $host.hostname }}.pem
-            {{- end }}
+              {{- range $host := .Values.certificates.hosts }}
+              - secret:
+                  name: {{ $.Release.Name }}-{{ $host.hostname | replace "." "-" }}-tls
+                  items:
+                  - key: tls.key
+                    path: {{ $host.hostname }}.key
+                  - key: tls.crt
+                    path: {{ $host.hostname }}.pem
+              {{- end }}
