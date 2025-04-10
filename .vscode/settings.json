@@ -1,3 +1,8 @@
 {
-    "sarif-viewer.connectToGithubCodeScanning": "off"
+    "sarif-viewer.connectToGithubCodeScanning": "off",
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#5D0D17",
+        "titleBar.activeBackground": "#821221",
+        "titleBar.activeForeground": "#FEFBFC"
+    }
 }
