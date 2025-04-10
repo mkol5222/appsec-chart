@@ -1,5 +1,5 @@
 apiVersion: v2
 name: waf-multihost
 description: CloudGuard WAF Deployment for multiple hostnames
-version: 0.1.2
+version: 0.1.4
 appVersion: "1.0"
