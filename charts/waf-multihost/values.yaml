@@ -9,6 +9,6 @@ cptoken:
 
 certificates:
   issuer: letsencrypt-prod  # Your cert-manager issuer
-  hosts:
-    - hostname: devv1.klaud.online
-    - hostname: devv9.klaud.online
+  hosts: []
+    # - hostname: devv1.klaud.online
+    # - hostname: devv9.klaud.online
